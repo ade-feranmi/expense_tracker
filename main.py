@@ -4,9 +4,8 @@ from database import engine
 from models import Base
 
 app = FastAPI(
-    title="Personal_Expense_Tracker",
+    title="Pesa_Flow",
     version="1.0.0",
-    description="A fast and reliable personal expense tracker"
+    description="PesaFlow turns your M-Pesa statement into a clear, categorized picture of your money and helps you do something about it."
 )
-Base.metadata.create_all(engine)
 app.include_router(router)

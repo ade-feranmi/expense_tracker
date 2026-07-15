@@ -1,11 +1,11 @@
 from fastapi import HTTPException,status
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-from models import Expense
-from schemas import ExpenseCreate,ExpenseOut,ExpenseUpdate
+from models import Transaction
+from schemas import ExpenseCreate,ExpenseUpdate,ExpenseOut
 
-def query_expense(transaction_id:str, db:Session) ->object:
-    expense = db.query(Expense).filter(Expense.transaction_id == transaction_id).first()
+def query_expense(mpesa_code:str, db:Session) ->object:
+    expense = db.query(Transaction).filter(Transaction.mpesa_code == mpesa_code).first()
     if not expense:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -15,7 +15,7 @@ def query_expense(transaction_id:str, db:Session) ->object:
 
 def add_transaction(db:Session, payload:ExpenseCreate) -> ExpenseOut:
     try:
-        new_expense = Expense(**payload.model_dump())
+        new_expense = Transaction(**payload.model_dump())
 
         db.add(new_expense)
         db.commit()
@@ -31,15 +31,15 @@ def add_transaction(db:Session, payload:ExpenseCreate) -> ExpenseOut:
 
 
 def view_transactions(db:Session) -> list[ExpenseOut]:
-    expenses=db.query(Expense).all()
+    expenses=db.query(Transaction).all()
     return expenses
 
-def get_transaction(db:Session, transaction_id:str) -> ExpenseOut:
-    search=query_expense(transaction_id, db=db)
+def get_transaction(db:Session, mpesa_code:str) -> ExpenseOut:
+    search=query_expense(mpesa_code, db=db)
     return search
 
-def edit_transaction(db:Session, transaction_id:str, payload:ExpenseUpdate) -> ExpenseOut:
-    db_expense = query_expense(transaction_id, db=db)
+def edit_transaction(db:Session, mpesa_code:str, payload:ExpenseUpdate) -> ExpenseOut:
+    db_expense = query_expense(mpesa_code, db=db)
 
     update_data = payload.model_dump(exclude_unset=True)
     
@@ -59,10 +59,10 @@ def edit_transaction(db:Session, transaction_id:str, payload:ExpenseUpdate) -> E
     return db_expense
 
 
-def delete_transaction(transaction_id: str, db: Session) -> dict:
-    expense = query_expense(transaction_id, db=db)
+def delete_transaction(mpesa_code: str, db: Session) -> dict:
+    expense = query_expense(mpesa_code, db=db)
     db.delete(expense)
     db.commit()
     
-    return {"status": "success", "message": f"Transaction {transaction_id} deleted successfully"}
+    return {"status": "success", "message": f"Transaction {mpesa_code} deleted successfully"}
 

@@ -14,7 +14,7 @@ router = APIRouter(
 db = Annotated[Session, Depends(get_db)]
 
 @router.get(
-    "/expenses",
+    "/transactions",
     response_model=list[ExpenseOut],
     status_code=status.HTTP_200_OK
 )
@@ -22,15 +22,15 @@ def view_expenses(db: db):
     return view_transactions(db=db)
 
 @router.get(
-    "/expenses/{transaction_id}",
+    "/transactions/{transaction_id}",
     response_model=ExpenseOut,
     status_code=status.HTTP_200_OK
 )
 def get_expense(transaction_id:str, db : db):
-    return get_transaction(transaction_id=transaction_id, db=db)
+    return get_transaction(mpesa_code=transaction_id, db=db)
 
 @router.post(
-    "/expenses",
+    "/transactions",
     response_model=ExpenseOut,
     status_code=status.HTTP_201_CREATED
 )
@@ -38,22 +38,22 @@ def add_expense(payload:ExpenseCreate, db:db):
     return add_transaction(payload=payload, db=db)
 
 @router.patch(
-    "/expenses/{transaction_id}",
+    "/transactions/{transaction_id}",
     response_model=ExpenseOut,
-    status_code=status.HTTP_201_CREATED
+    status_code=status.HTTP_200_OK
 )
 def edit_expense(transaction_id : str, db:db, payload:ExpenseUpdate):
     return edit_transaction(
-        transaction_id=transaction_id,
+        mpesa_code=transaction_id,
         db=db,
         payload=payload
     )
 
 @router.delete(
-    "/expense/{transaction_id}",
+    "/transactions/{transaction_id}",
     status_code=status.HTTP_200_OK
 )
 def delete_expense(transaction_id:str, db:db):
-    return delete_transaction(transaction_id=transaction_id, db=db)
+    return delete_transaction(mpesa_code=transaction_id, db=db)
 
     
