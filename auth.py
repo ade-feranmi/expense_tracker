@@ -22,6 +22,7 @@ secret_key = auth_settings.secret_key
 algorithm = auth_settings.algorithm
 expiry_minutes = auth_settings.access_token_expiry_minutes
 
+
 def create_access_token(data: dict) -> str:
     try:
         encode_data = data.copy()
@@ -43,6 +44,7 @@ def create_access_token(data: dict) -> str:
         print(f"Error: Token Generation Failed: {e}")
         raise RuntimeError("token creation failed") from e
 
+
 def decode_access_token(token: str) -> str:
     try:
         payload = jwt.decode(
@@ -53,7 +55,7 @@ def decode_access_token(token: str) -> str:
         user_id = payload.get("sub")
 
         if not user_id:
-            print("ERROR:Token Missing in payload")
+            print("ERROR:Sub claim missing from token payload")
             raise ValueError("Identity Missing from token")
         
         return user_id
@@ -62,8 +64,9 @@ def decode_access_token(token: str) -> str:
         print(f"Error:Token validation failed:{e}")
         raise ValueError("Invalid token") from e
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/login")
 
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/v1/login")
 
 
 def get_current_user(

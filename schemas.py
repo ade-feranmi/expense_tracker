@@ -37,23 +37,22 @@ class ExpenseOut(ExpenseBase):
 
 class UserBase(BaseModel):
     email: EmailStr
-    password: str = Field(..., min_length=8)
-
-class UserCreate(UserBase):
     first_name: str
     last_name: str
     phone: str | None = None
 
-class UserLogin(UserBase):
-    pass
+
+class UserCreate(UserBase):
+    password: str = Field(..., min_length=8)
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+
 
 class UserOut(UserBase):
     model_config = ConfigDict(from_attributes=True)
-
-    first_name: str
-    last_name: str
-    phone: str | None = None
-    id : int
+    id: int
 
 
 class TokenOut(BaseModel):
