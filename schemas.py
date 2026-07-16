@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict,EmailStr,Field
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
@@ -34,3 +34,28 @@ class ExpenseOut(ExpenseBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+class UserBase(BaseModel):
+    email: EmailStr
+    password: str = Field(..., min_length=8)
+
+class UserCreate(UserBase):
+    first_name: str
+    last_name: str
+    phone: str | None = None
+
+class UserLogin(UserBase):
+    pass
+
+class UserOut(UserBase):
+    model_config = ConfigDict(from_attributes=True)
+
+    first_name: str
+    last_name: str
+    phone: str | None = None
+    id : int
+
+
+class TokenOut(BaseModel):
+    access_token : str
+    token_type : str = "bearer"

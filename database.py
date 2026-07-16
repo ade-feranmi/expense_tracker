@@ -3,7 +3,8 @@ from collections.abc import Iterator
 
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
-from sqlalchemy.orm import declarative_base, sessionmaker, Session
+from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.ext.declarative import declarative_base
 
 load_dotenv()
 
