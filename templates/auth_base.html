@@ -4,9 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}PesaFlow{% endblock %}</title>
-    <link rel="stylesheet" href="{{url_for("stat")}}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/auth_page.css') }}">
 </head>
 <body>
-    
+    <main class="content-wrapper">
+        <section class="right_section">
+            <header class="brand-header">
+                <span class="brand-logo" aria-hidden="true"></span>
+                <span class="brand-name">PesaFlow</span>
+            </header>
+
+            <div class="hero-content">
+                <h1>Turn your M-Pesa statement into a clear, categorized picture of your money.</h1>
+                <p>Upload a statement and see a populated dashboard in under a minute—no manual entry required.</p>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <span class="metric-value">90%+</span>
+                    <span class="metric-label">Auto-Categorized</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">&lt; 60s</span>
+                    <span class="metric-label">To First Dashboard</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">100%</span>
+                    <span class="metric-label">Data on Your Device</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="left_section">
+            {% block content %}
+            {% endblock %}
+        </section>
+
+    </main>
 </body>
 </html>

@@ -1,0 +1,33 @@
+{% extends 'auth_base.html' %}
+
+{% block content %}
+<div class="form_wrapper">
+    <h1>Welcome back</h1>
+    <p>Log in to see where your money went this month</p>
+    {% if error %}
+    <div class="error_message">
+        {{ error }}
+    </div>
+    {% endif %}
+    <form action="/login" method="POST">
+        
+        <label for="email_field">Email address</label>
+        <input type="email" id="email_field" name="username" autocomplete="username" value="{{ form.username if form else "" }}">
+
+        <label for="password_field">Password</label>
+        <input type="password" id="password_field" name="password" autocomplete="current-password" required>
+
+        <div class="login-row">
+            <div class="remember-me">
+                <input type="checkbox" id="remember_me" name="remember_me">
+                <label for="remember_me">Keep me signed in</label>
+            </div>
+            <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit">Log in</button>
+    </form>
+    
+    <p class="redirect-link">New to PesaFlow? <a href="/signup">Create an account</a></p>
+</div>
+{% endblock %}

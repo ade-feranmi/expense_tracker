@@ -1,0 +1,64 @@
+{% extends 'auth_base.html' %}
+{% block content %}
+<div class="form_wrapper">
+    <h1>Create your account</h1>
+    <p>Set up PesaFlow in under a minute -- statement upload comes right after</p>
+
+    {% if error %}
+    <div class="error_message">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <form action="/signup" method="post">
+
+        <label for="email_field">Email address</label>
+        <input type="email" id="email_field" name="email" autocomplete="username"
+            value="{{ form.email if form else ""}}" required>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="first_name_field">First Name</label>
+                <input type="text" id="first_name_field" name="first_name" value="{{ form.first_name if form else ""}}"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="last_name_field">Last Name</label>
+                <input type="text" id="last_name_field" name="last_name" value="{{ form.last_name if form else ""}}"
+                    required>
+            </div>
+        </div>
+
+        <label for="phone_field">Phone Number</label>
+        <input type="tel" id="phone_field" name="phone" value="{{ form.phone if form else ""}}">
+
+        <!-- Group Password Fields Side-by-Side -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="password_field">Password</label>
+                <input type="password" id="password_field" name="password" autocomplete="new-password" minlength="8"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password_field">Confirm Password</label>
+                <input type="password" id="confirm_password_field" name="confirm_password" autocomplete="new-password"
+                    required>
+            </div>
+        </div>
+
+        <div class="remember-me-container">
+            <input type="checkbox" id="remember_me" name="remember_me">
+            <label for="remember_me">Remember me on this device</label>
+        </div>
+
+        <div class="terms-container">
+            <input type="checkbox" id="agree_terms" name="agree_terms" required>
+            <label for="agree_terms">I agree to Terms and Privacy Policy -- data stays private</label>
+        </div>
+
+        <button type="submit">Create Account</button>
+        <p class="redirect-link">Already have an account? <a href="/login">Login</a></p>
+    </form>
+
+</div>
+{% endblock %}

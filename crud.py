@@ -94,4 +94,4 @@ def crud_create_user(
     except IntegrityError as e:
         db.rollback()
         print(f"Database Integrity Error: {e}")
-        raise ValueError("Registration failed: Duplicate credentials or invalid data provided") from e
+        raise ValueError("email already exists") from e
