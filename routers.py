@@ -1,5 +1,5 @@
 from typing import Annotated
-from fastapi import APIRouter, status, Depends, HTTPException,Request
+from fastapi import APIRouter, status, Depends, HTTPException,Request, UploadFile,File
 from database import get_db
 from models import User
 from sqlalchemy.orm import Session
@@ -136,3 +136,18 @@ def authenticate_user(
             detail="Incorrect email or password",
             headers={"WWW-Authenticate": "Bearer"},
         ) from e    
+
+@router.post("/upload", status_code=status.HTTP_200_OK)
+async def upload_pdf(file : UploadFile = File()):
+    if file.content_type != "application/pdf":
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="only pdf files allowed"
+        )
+    with open(f"uploaded_{file.filename}", "wb") as buffer:
+        buffer.write(await file.read())
+
+    return {
+        "filename" : file.filename,
+        "message" : "pdf uploaded successfully"
+    }
