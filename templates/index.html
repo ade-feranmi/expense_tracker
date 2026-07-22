@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PesaFlow — Turn your M-Pesa statement into a clear picture of your money</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/home_page.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <div class="wrap nav">
+            <div class="logo"><span class="dot"></span>PesaFlow</div>
+            <nav class="nav-links">
+                <a href="#product">Product</a>
+                <a href="#how-it-works">How it works</a>
+                <a href="#security">Security</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="{{ url_for('get_login_page') }}" class="login-link">Log in</a>
+                <a href="{{ url_for('get_signup_page') }}" class="btn btn-primary btn-sm">Get started free</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="wrap hero-inner">
+            <div>
+                <span class="eyebrow">Built for the M-Pesa generation</span>
+                <h1>Turn your M-Pesa statement into a clear picture of your money.</h1>
+                <p class="hero-sub">Upload a statement and PesaFlow parses, categorizes, and visualizes it automatically
+                    — budgets, reports, and insight, with zero manual data entry to get there.</p>
+                <div class="hero-ctas">
+                    <a href="{{ url_for('get_signup_page') }}" class="btn btn-primary">Create free account</a>
+                    <a href="#how-it-works" class="link-secondary">See how import works →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrap">
+            <div class="preview-card">
+                <div class="preview-topbar">
+                    <div class="preview-greeting">Good evening, <strong>Ade</strong></div>
+                    <a href="{{ url_for('get_signup_page') }}" class="btn btn-primary btn-sm">+ Upload statement</a>
+                </div>
+                <div class="kpi-row">
+                    <div class="kpi">
+                        <div class="kpi-label">Balance</div>
+                        <div class="kpi-value">KES 42,180</div>
+                        <div class="kpi-sub">Across 1 M-Pesa account</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Income</div>
+                        <div class="kpi-value pos">KES 68,000</div>
+                        <div class="kpi-sub">1 income transaction</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Expenses</div>
+                        <div class="kpi-value neg">KES 25,820</div>
+                        <div class="kpi-sub">18 transactions</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Transport budget</div>
+                        <div class="kpi-value neg">104%</div>
+                        <div class="kpi-sub">Over limit this month</div>
+                    </div>
+                </div>
+                <div class="preview-bottom" aria-hidden="true">
+                    <div class="bar" style="height:34px;background:var(--blue);"></div>
+                    <div class="bar" style="height:52px;background:var(--amber);"></div>
+                    <div class="bar" style="height:70px;background:var(--green);"></div>
+                    <div class="bar" style="height:28px;background:#B9A9DC;"></div>
+                    <div class="bar" style="height:18px;background:#D7DEE7;"></div>
+                    <div class="bar" style="height:12px;background:#E4E9F0;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="product">
+        <div class="wrap">
+            <div class="section-head">
+                <div class="kicker">Why PesaFlow</div>
+                <h2>No mainstream budgeting app treats M-Pesa as a first-class data source. PesaFlow does.</h2>
+            </div>
+            <div class="pillars">
+                <div class="pillar">
+                    <div class="pillar-num">01</div>
+                    <h3>Visibility</h3>
+                    <p>Import and auto-categorize M-Pesa activity so you see real spending without manual entry.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-num">02</div>
+                    <h3>Control</h3>
+                    <p>Budgets, category limits, and savings goals turn visibility into intentional decisions.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-num">03</div>
+                    <h3>Insight</h3>
+                    <p>Reports — and eventually AI-driven analysis — surface patterns you wouldn't notice alone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-fog" id="how-it-works">
+        <div class="wrap wedge">
+            <div>
+                <div class="kicker">The core wedge</div>
+                <h2>From a dense PDF statement to a categorized dashboard in under 60 seconds.</h2>
+                <p class="lead">Upload your M-Pesa PDF or CSV. PesaFlow parses every row, auto-suggests a category by
+                    rule, flags anything it isn't sure about, and lets you confirm before anything is saved — no ML
+                    black box, fully explainable from day one.</p>
+            </div>
+            <div class="import-card">
+                <div class="import-card-head">
+                    <span>MPESA_Statement_June2026.pdf</span>
+                    <span class="badge">42 of 44 parsed</span>
+                </div>
+                <div class="import-row">
+                    <span class="desc">Pay Bill — KPLC</span>
+                    <span class="tag tag-bills">Bills</span>
+                </div>
+                <div class="import-row">
+                    <span class="desc">Till — Java House</span>
+                    <span class="tag tag-food">Food</span>
+                </div>
+                <div class="import-row">
+                    <span class="desc">Unrecognized merchant</span>
+                    <span class="tag tag-review">Needs review</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-band">
+        <div class="wrap">
+            <h2>Know where your money actually goes.</h2>
+            <p>Free while in beta — your first statement import takes under a minute.</p>
+            <a href="{{ url_for('get_signup_page') }}" class="btn btn-primary">Create free account</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="wrap footer-row">
+            <div class="logo"><span class="dot"></span>PesaFlow</div>
+            <div class="footer-copy">© 2026 PesaFlow · Built for the M-Pesa generation</div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -2,7 +2,6 @@ import os,uuid
 from typing import Annotated
 
 from fastapi import UploadFile, File,Depends
-from sqlalchemy.exc import IntegrityError
 from models import Statement
 from database import get_db
 

@@ -184,3 +184,11 @@ def get_dashboard_page(
         )
         response.delete_cookie("access_token")
         return response
+
+@router.get("/home", response_class=HTMLResponse)
+def get_homepage(request : Request):
+    
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html"
+    )
