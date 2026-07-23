@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Page</title>
+</head>
+<body>
+    
+    {% if error %}
+    <div class="error-message" style="color: red; margin-bottom: 10px;">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    {% if success %}
+    <div class="success-message" style="color: green; margin-bottom: 10px;">
+        {{ success }}
+    </div>
+    {% endif %}
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="pdf_file">Upload Pdf</label>
+        <input type="file" name="file" id="pdf_file" accept=".pdf, .csv">
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

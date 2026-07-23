@@ -1,5 +1,5 @@
 from typing import Annotated
-from fastapi import APIRouter, Request, Depends, status, Form
+from fastapi import APIRouter, Request, Depends, status, Form, UploadFile, File
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordRequestForm
@@ -192,3 +192,37 @@ def get_homepage(request : Request):
         request=request,
         name="index.html"
     )
+
+@router.get("/upload", response_class=HTMLResponse)
+def get_upload_page(request : Request):
+    return templates.TemplateResponse(
+        request=request,
+        name = "upload.html"
+    )
+
+@router.post("/upload", response_class=HTMLResponse)
+async def upload_pdf(request : Request, file : UploadFile = File(...)):
+
+    if file.content_type != "application/pdf":
+        return templates.TemplateResponse(
+            request=request,
+            name="upload.html",
+            context={"error" : "Only pdf files allowed"}
+        )
+    try:
+        context = await file.read()
+        with open(f"uploaded_{file.filename}", "wb") as buffer:
+            buffer.write(context)
+
+        return templates.TemplateResponse(
+            request=request,
+            name="upload.html",
+            context={"success" : "document uploaded successfully"}
+        )
+    except Exception as e:
+        return templates.TemplateResponse(
+            request=request,
+            name="upload.html",
+            context={"error" : str(e)}
+        )
+

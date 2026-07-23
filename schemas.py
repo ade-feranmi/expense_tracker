@@ -3,13 +3,6 @@ from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 
-class TransactionSource(str, Enum):
-    IMPORT = "IMPORT"
-    MANUAL = "MANUAL"
-
-class TransactionType(str, Enum):
-    INCOME = "INCOME"
-    EXPENSE = "EXPENSE"
 
 class ExpenseBase(BaseModel):
     type: TransactionType
